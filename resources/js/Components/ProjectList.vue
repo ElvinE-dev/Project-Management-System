@@ -58,7 +58,7 @@ const daysLeft = computed(() => {
                 <button class="primary rounded-sm px-4 py-2">
                     Set as Complete
                 </button>
-                <button @click="props.handleModal()" class="primary rounded-sm px-4 py-2">
+                <button @click="props.handleModal(data.id)" class="primary rounded-sm px-4 py-2">
                     Edit
                 </button>
                 <button class="primary rounded-sm px-4 py-2" @click="deleteProject(data.id)">

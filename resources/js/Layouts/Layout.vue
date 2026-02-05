@@ -4,10 +4,11 @@ import AddProjectButton from '../Components/AddProjectButton.vue';
 import Header from '../Components/Header.vue';
 import Modal from '../Components/Modal.vue';
 import SideBar from '../Components/SideBar.vue';
-import {onMounted, ref} from "vue"
+import {computed, onMounted, ref} from "vue"
 
 
 const isModalOpen = ref(false)
+const projectId = ref(0)
 
 interface Project{
     id:number,
@@ -19,8 +20,13 @@ interface Project{
 
 const projectData = ref<Project[]>([])
 
-function ToggleModal() {
+const EditProjectData = computed<Project | undefined>(() =>
+    projectData.value.find((p) => p.id === projectId.value) ?? undefined
+)
+
+function ToggleModal(id:number) {
     isModalOpen.value = !isModalOpen.value
+    projectId.value = id
 }
 
 onMounted(async () =>{
@@ -29,7 +35,7 @@ onMounted(async () =>{
     projectData.value = res.data
 })
 
-const fetchProject = async () =>{
+const fetchProjects = async () =>{
     const res = await axios.get('/api/projects')
 
     projectData.value = res.data
@@ -52,12 +58,12 @@ const deleteProject = async (id:number) =>{
         </div>
 
         <div class="px-4 py-2 w-full">
-            <slot :handleModal="ToggleModal" :projectData="projectData", :deleteProject />
+            <slot :handleModal="ToggleModal" :projectData="projectData", :deleteProject="deleteProject" />
         </div>
     </div>
 
     <AddProjectButton :handleClick="ToggleModal"/>
 
-    <Modal v-if="isModalOpen" @refresh="fetchProject" :handleClick="ToggleModal"/>
+    <Modal v-if="isModalOpen" :EditProjectData="EditProjectData" @refresh="fetchProjects" :handleClick="ToggleModal"/>
 
 </template>

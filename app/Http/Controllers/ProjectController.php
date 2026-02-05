@@ -32,4 +32,18 @@ class ProjectController extends Controller
         return response()->json($request, 200);
 
     }
+
+    public function update($id, Request $request){
+        $data = Project::findOrFail($id);
+
+        $data->name = $request->name;
+        $data->deadline = $request->deadline;
+        $data->start_date = $request->start_date;
+        $data->members = $request->members;
+        $data->is_completed = $request->is_completed;
+         
+        $data->save();
+
+        return response()->json('Edited Successfully', 201);
+    }
 }

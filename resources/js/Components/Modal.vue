@@ -5,6 +5,9 @@ const props = defineProps({
     handleClick: {
         type: Function,
         required: true
+    },
+    EditProjectData: {
+        type: Object,
     }
 })
 
@@ -14,13 +17,40 @@ const ToggleModal = () => {
     props.handleClick()
 }
 
+const EditProjectData = props.EditProjectData
+
 const name = ref('')
 const deadline = ref('')
 const start_date = ref('')
 const members = ref('')
 
+name.value = EditProjectData?.name
+start_date.value = EditProjectData?.start_date
+deadline.value = EditProjectData?.deadline
+members.value = EditProjectData?.members
+
 const CreateProject = async () => {
     await axios.post('/api/projects',{
+        name: name.value,
+        deadline: deadline.value,
+        start_date: start_date.value,
+        members: members.value,
+        is_completed: false
+    })
+
+    name.value = ''
+    start_date.value = ''
+    deadline.value = ''
+    members.value = ''
+
+    ToggleModal()
+
+    emit('refresh')
+
+}
+
+const UpdateProject = async (id) => {
+    await axios.put('/api/projects/'+id,{
         name: name.value,
         deadline: deadline.value,
         start_date: start_date.value,
@@ -44,7 +74,7 @@ const CreateProject = async () => {
 <template>
     <div class="flex z-10 items-center justify-center fixed top-0 left-0 w-screen h-screen">
         <span class="w-full h-full bg-black/15 absolute z-15" @click="ToggleModal"></span>
-        <form @submit.prevent="CreateProject()" class="flex flex-col bg-gray-800 w-200 h-100 z-20 gap-5 p-4">
+        <form @submit.prevent="EditProjectData?.id ? UpdateProject(EditProjectData.id) : CreateProject()" class="flex flex-col bg-gray-800 w-200 h-100 z-20 gap-5 p-4">
             <div class="flex-col flex w-full">
                 namaproject
                 <input 
@@ -80,7 +110,7 @@ const CreateProject = async () => {
             </div>
 
             <button role="submit" type="submit"  class="bg-primary! p-3 w-full rounded-md">
-                Create
+                {{ EditProjectData?.id ? 'Edit' : 'Create' }}
             </button>
 
         </form>
