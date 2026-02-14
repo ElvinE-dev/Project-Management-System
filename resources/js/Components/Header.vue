@@ -1,3 +1,15 @@
+<script setup>
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+
+const page = usePage()
+
+const user = computed(() => page.props.auth?.user)
+
+
+
+</script>
+
 <template>
     <div class="w-full flex items-center justify-between h-15 pl-18 bg-white dark:bg-gray-800 shadow-md px-4 py-2">
         <div class="w-full flex gap-5">
@@ -17,7 +29,7 @@
             </div>
         </div>
 
-        <div class="flex items-center h-full gap-5 py-2">
+        <div class="flex items-center h-full gap-5 py-2 w-3/12">
 
             <button class="rounded-full w-10 h-10 relative">
                 <span class="rounded-full w-4.5 h-4.5 items-center justify-center flex absolute bg-red-500 text-xs top-0 right-0">
@@ -33,7 +45,7 @@
             <div class="flex gap-2 items-center">
                 <div class="rounded-full w-10 h-10 bg-gray-700"></div>
 
-                <p class="text-sm">Username</p>
+                <div v-if="user" class="text-sm w-fit truncate">{{ user?.username }}</div>
 
                 <a href="/settings" class="bg-transparent!"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

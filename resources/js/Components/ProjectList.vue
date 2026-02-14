@@ -31,7 +31,7 @@ const daysLeft = computed(() => {
 
 
 <template>
-    <div class="bg-gray-700 w-full h-30 px-4 py-2 flex flex-col justify-between">
+    <div class="bg-gray-900 w-full h-30 px-4 py-2 flex flex-col justify-between rounded-md">
         <div class="flex justify-between">
             <div class="flex gap-2 items-center">
                 <h1 class="font-bold text-2xl">{{ data.name }} | {{ data.id }}</h1>

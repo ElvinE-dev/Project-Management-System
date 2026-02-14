@@ -8,14 +8,14 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-primary: #6D00B5
+    --color-primary: #3B82F6
 }
 
 button{
     @apply cursor-pointer bg-gray-700 hover:bg-gray-600 flex items-center justify-center
 }
 button.primary{
-    @apply cursor-pointer bg-primary hover:bg-[#6D30B5] flex items-center justify-center
+    @apply cursor-pointer bg-primary hover:bg-[#5695f9] flex items-center justify-center
 }
 
 a{
