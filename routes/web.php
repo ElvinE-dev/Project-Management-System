@@ -29,4 +29,9 @@ Route::get('/members', function () {
 Route::get('/settings', function () {
     return Inertia::render('Settings');
 })->middleware('auth');
+
+Route::get('/chats', function () {
+    return Inertia::render('Chats');
+})->middleware('auth');
+
 Route::post('/login', [LoginController::class, 'login']);

@@ -42,13 +42,6 @@ import Layout from '../Layouts/Layout.vue';
                         <input type="text" placeholder="New Email...." class="border border-gray-600 p-2">
                     </td>
                 </tr>
-                <tr>
-                    <td>Username</td>
-                    <td>
-                        <input type="text" placeholder="New Username...." class="border border-gray-600 p-2">
-                    </td>
-                </tr>
-
             </table>
         </div>
     </Layout>

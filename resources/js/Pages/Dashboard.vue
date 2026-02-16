@@ -11,7 +11,7 @@ import ProjectStats from '../Components/ProjectStats.vue';
     <Layout v-slot="{ projectData, handleModal, deleteProject }">
         
         <Title title="Dashboard"/>
-        
+         
         <div class="flex-col w-full flex h-fit">
             <div class="flex gap-2">
                 <Calendar :projectData="projectData"/>
