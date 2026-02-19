@@ -33,3 +33,11 @@ div.primary,span.primary,p.primary,h1.primary,h2.primary,h3.primary,h4.primary,h
 td{
     @apply border-gray-600 border p-2;
 }
+
+div.chat-sent{
+    @apply bg-primary h-fit max-w-90 p-2 pb-4 rounded rounded-br-none self-end;
+}
+div.chat-received{
+    @apply bg-gray-800 h-fit max-w-90 p-2 pb-4 rounded rounded-bl-none self-start;
+}
+

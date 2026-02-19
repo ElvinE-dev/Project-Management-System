@@ -5,6 +5,7 @@ import Header from '../Components/Header.vue';
 import Modal from '../Components/Modal.vue';
 import SideBar from '../Components/SideBar.vue';
 import {computed, onMounted, ref} from "vue"
+import { usePage } from '@inertiajs/vue3';
 
 
 const isModalOpen = ref(false)
@@ -46,6 +47,8 @@ const deleteProject = async (id:number) =>{
 
     projectData.value = projectData.value.filter((p) => p.id !== id)
 }
+
+const route = usePage();
 </script>
 
 
@@ -62,7 +65,7 @@ const deleteProject = async (id:number) =>{
         </div>
     </div>
 
-    <AddProjectButton :handleClick="ToggleModal"/>
+    <AddProjectButton v-if="route.url !== '/chats'" :handleClick="ToggleModal"/>
 
     <Modal v-if="isModalOpen" :EditProjectData="EditProjectData" @refresh="fetchProjects" :handleClick="ToggleModal"/>
 
