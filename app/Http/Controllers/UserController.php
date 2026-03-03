@@ -12,4 +12,10 @@ class UserController extends Controller
 
         return response()->json($data);
     }
+
+    public function getUser(Request $request){
+        $data = User::findOrFail($request->id);
+
+        return response()->json($data);
+    }
 }

@@ -3,6 +3,8 @@ import axios from 'axios';
 import Title from '../Components/Title.vue';
 import Layout from '../Layouts/Layout.vue';
 import { onMounted, ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import { computed } from '@vue/reactivity';
 
 interface UserData{
     id:number;
@@ -10,6 +12,20 @@ interface UserData{
     email:string;
     profile: string|null;
 }
+interface PageProps {
+  [key: string]: unknown
+
+  auth?: {
+    user?: {
+      id: number
+      name: string
+      email: string
+    } | null
+  }
+}
+const page = usePage<PageProps>()
+
+const auth = computed(() => page.props.auth?.user)
 
 
 const usersData = ref<UserData[]>([])
@@ -19,6 +35,17 @@ onMounted(async() => {
     const res = await axios.get('/api/users');
     usersData.value = res.data
 })
+
+async function createConversation(target_id:number){
+    const {data} = await axios.post('/api/conversation', {
+        sender_id:auth.value?.id,
+        receiver_id:target_id
+    })
+
+    if(data.conversation_id){
+        window.location.href ='/chats/'+data.conversation_id
+    }
+}
 
 </script>
 
@@ -34,7 +61,7 @@ onMounted(async() => {
                 </div>
 
                 <div class="flex">
-                    <button class="bg-primary! px-8 py-2 rounded-md">Chat</button>
+                    <button @click="createConversation(user.id)" class="bg-primary! px-8 py-2 rounded-md">Chat</button>
                 </div>
             </div>
         </div>

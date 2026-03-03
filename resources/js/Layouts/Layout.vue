@@ -60,13 +60,14 @@ const route = usePage();
             <SideBar />
         </div>
 
-        <div class="px-4 py-2 w-full">
+        <div class="px-4 py-2 w-full h-screen">
             <slot :handleModal="ToggleModal" :projectData="projectData", :deleteProject="deleteProject" />
         </div>
     </div>
 
-    <AddProjectButton v-if="route.url !== '/chats'" :handleClick="ToggleModal"/>
+    <AddProjectButton v-if="!route.url.includes('/chats')" :handleClick="ToggleModal"/>
 
     <Modal v-if="isModalOpen" :EditProjectData="EditProjectData" @refresh="fetchProjects" :handleClick="ToggleModal"/>
 
 </template>
+

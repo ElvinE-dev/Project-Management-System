@@ -35,9 +35,9 @@ td{
 }
 
 div.chat-sent{
-    @apply bg-primary h-fit max-w-90 p-2 pb-4 rounded rounded-br-none self-end;
+    @apply bg-primary h-fit max-w-90 p-2 pb-2 rounded rounded-tr-none self-end flex flex-col gap-3;
 }
 div.chat-received{
-    @apply bg-gray-800 h-fit max-w-90 p-2 pb-4 rounded rounded-bl-none self-start;
+    @apply bg-gray-800 h-fit max-w-90 p-2 pb-2 rounded rounded-tl-none self-start flex flex-col gap-3;
 }
 
