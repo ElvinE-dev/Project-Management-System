@@ -19,7 +19,13 @@ interface Project{
     members:string
 }
 
+interface ProjectMembers{
+    project_id:number,
+    member_id:number,
+}
+
 const projectData = ref<Project[]>([])
+const membersData = ref<ProjectMembers[]>([])
 
 const EditProjectData = computed<Project | undefined>(() =>
     projectData.value.find((p) => p.id === projectId.value) ?? undefined
@@ -34,6 +40,10 @@ onMounted(async () =>{
     const res = await axios.get('/api/projects')
 
     projectData.value = res.data
+
+    const member_res = await axios.get('/api/projects/members')
+
+    membersData.value = member_res.data
 })
 
 const fetchProjects = async () =>{
@@ -48,6 +58,7 @@ const deleteProject = async (id:number) =>{
     projectData.value = projectData.value.filter((p) => p.id !== id)
 }
 
+
 const route = usePage();
 </script>
 
@@ -61,7 +72,7 @@ const route = usePage();
         </div>
 
         <div class="px-4 py-2 w-full h-screen">
-            <slot :handleModal="ToggleModal" :projectData="projectData", :deleteProject="deleteProject" />
+            <slot  :membersData="membersData" :handleModal="ToggleModal" :projectData="projectData", :deleteProject="deleteProject" />
         </div>
     </div>
 

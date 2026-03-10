@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+
+// interface Member{
+//     id:number,
+//     username:string,
+//     email:string,
+//     profile:null
+// }
+
 const props = defineProps({
     data:{
         type: Object,
@@ -13,7 +21,12 @@ const props = defineProps({
     handleModal:{
         type:Function,
         required:true
-    }
+    },
+    member:{
+        type: Object,
+        required: true
+    },
+
 })
 
 async function deleteProject(id:number){
@@ -26,6 +39,11 @@ const daysLeft = computed(() => {
 
     return Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
 })
+
+const projectMembers = computed(() => {
+    return props?.member.filter((a:Object) => a.project_id === props.data.id)
+})
+
 
 </script>
 
@@ -47,11 +65,7 @@ const daysLeft = computed(() => {
 
         <div class="flex items-center justify-between">
             <div class="flex">
-                <div class="bg-gray-800 w-13 h-13 rounded-full"></div>
-                <div class="bg-gray-800 w-13 h-13 rounded-full"></div>
-                <div class="bg-gray-800 w-13 h-13 rounded-full"></div>
-                <div class="bg-gray-800 w-13 h-13 rounded-full"></div>
-                <div class="bg-gray-800 w-13 h-13 rounded-full"></div>
+                <div v-for="member in projectMembers"  class="bg-gray-800 w-13 h-13 rounded-full"></div>
             </div>
 
             <div class="flex gap-2">

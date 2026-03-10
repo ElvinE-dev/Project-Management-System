@@ -18,5 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
         Project::factory(10)->create();
+
+        $users = User::all();
+
+        Project::all()->each(function ($project) use ($users) {
+            $project->members()->attach(
+                $users->random(rand(3, 6))->pluck('id')
+            );
+        });
     }
 }

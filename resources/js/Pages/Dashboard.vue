@@ -8,18 +8,18 @@ import ProjectStats from '../Components/ProjectStats.vue';
 </script>
 
 <template>
-    <Layout v-slot="{ projectData, handleModal, deleteProject }">
+    <Layout v-slot="{ membersData, projectData, handleModal, deleteProject }">
         
         <Title title="Dashboard"/>
          
         <div class="flex-col w-full flex h-fit">
-            <div class="flex gap-2">
+            <div class="flex gap-2 m-8">
                 <Calendar :projectData="projectData"/>
-                <div class="flex flex-col w-6/12 h-161">
+            </div>
+            <div class="flex flex-col w-full gap-2 h-full overflow-auto">
+                <div class="flex flex-col w-full p-8 h-161">
                     <ProjectStats :projectData="projectData"/>
-                    <div class="flex flex-col w-full gap-2 h-full overflow-auto">
-                        <ProjectList v-for="project in projectData" :handleModal="handleModal" :deleteProject="deleteProject" :data="project" :key="project.id"/>
-                    </div>
+                    <ProjectList v-for="project in projectData" :member="membersData" :handleModal="handleModal" :deleteProject="deleteProject" :data="project" :key="project.id"/>
                 </div>
             </div>
         </div>

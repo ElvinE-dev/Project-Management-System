@@ -9,13 +9,13 @@ import ProjectStats from '../Components/ProjectStats.vue';
 </script>
 
 <template>
-    <Layout v-slot="{ handleModal, projectData, deleteProject }">
+    <Layout v-slot="{ handleModal, membersData, projectData, deleteProject }">
         <Title title="Projects" />
 
         <ProjectStats :projectData />
 
         <div class="flex gap-5 flex-col " >
-                <ProjectList :data="data" :handleModal="handleModal" :delete-project="deleteProject" v-for="(data, index) in projectData" :key="index"/>
+                <ProjectList :data="data" :handleModal="handleModal" :member="membersData" :delete-project="deleteProject" v-for="(data, index) in projectData" :key="index"/>
         </div>
         
     </Layout>

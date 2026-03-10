@@ -21,7 +21,6 @@ class ProjectFactory extends Factory
             'start_date' => date('Y-m-d', random_int(1770013115, 1770063115)),
             'deadline' => date('Y-m-d', random_int(1770063115, 1770313115)),
             'is_completed' => false,
-            'members' => '',
         ];
     }
 }

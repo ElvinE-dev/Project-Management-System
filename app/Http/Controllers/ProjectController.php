@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectMembers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,6 +17,10 @@ class ProjectController extends Controller
         $target_project = Project::findOrFail($id);
         $target_project->delete();
         return response()->json('Project Deleted Successfully', 200);
+    }
+
+    public function getMembers(){
+        return ProjectMembers::all();
     }
 
     public function store(Request $request){

@@ -16,4 +16,9 @@ class Project extends Model
         'members',
         'is_completed'
     ];
+
+    public function members(){
+        // return $this->belongsToMany(User::class, 'project_user', 'project_id', 'member_id');
+        return $this->belongsToMany(User::class, 'project_members', 'project_id', 'member_id');
+    }
 }

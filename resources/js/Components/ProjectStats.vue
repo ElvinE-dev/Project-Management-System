@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
+
 
 const props = defineProps({
     projectData: {
@@ -7,6 +9,16 @@ const props = defineProps({
     }
 })
 
+// 
+const isCompleted = computed(() => {
+    return (props.projectData ?? []).filter((project) => project.is_completed !== 0).length
+})
+const today = new Date().toISOString().split("T")[0]
+const overDeadline = computed(() => {
+  return (props.projectData ?? []).filter(
+    project => new Date(project.deadline) < new Date()
+  ).length
+})
 
 </script>
 
@@ -20,23 +32,16 @@ const props = defineProps({
             </div>
             <div class="flex flex-col items-center justify-center bg-gray-900 px-4 py-4 mb-4">
                 <p class="text-primary font-bold text-2xl">
-                    8
+                    {{ isCompleted }}
                 </p>
                 <p>Completed</p>
             </div>
 
             <div class="flex flex-col items-center justify-center bg-gray-900 px-4 py-4 mb-4">
                 <p class="text-primary font-bold text-2xl">
-                    11
+                    {{ overDeadline }}
                 </p>
                 <p>Over Deadline</p>
-            </div>
-
-            <div class="flex flex-col items-center justify-center bg-gray-900 px-4 py-4 mb-4">
-                <p class="text-primary font-bold text-2xl">
-                    21
-                </p>
-                <p>Employee working</p>
             </div>
 
         </div>

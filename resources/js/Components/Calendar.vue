@@ -56,7 +56,7 @@ const getProjectByDate = (day:number) => {
 </script>
 
 <template>
- <div class="w-6/12 h-fit flex-col flex items-center justify-center p-8 bg-gray-900 rounded-xl">
+ <div class="w-full h-fit flex-col flex items-center justify-center p-8 bg-gray-900 rounded-xl">
             <div class="flex justify-between p-2 items-center w-full">
                 <button @click="nextDate" class="bg-gray-700 px-4 py-2 rounded-md"><</button>
                 <p class="font-bold text-2xl"> {{ monthNames[month] }} {{ year }}</p>
@@ -92,11 +92,13 @@ const getProjectByDate = (day:number) => {
 
                 <!-- :class="isToday(day) ? 'bg-blue-500' : '' " -->
 
-                <div v-for="day in daysInMonth" :key="day" :class="isToday(day) ? 'bg-blue-500 hover:bg-blue-400!' : ''"  class=" border border-gray-900 p-4 aspect-square hover:bg-gray-800 rounded-xl cursor-pointer">
+                <div v-for="day in daysInMonth" :key="day" :class="isToday(day) ? 'bg-blue-500 hover:bg-blue-400!' : ''"  class=" border border-gray-900 p-4 hover:bg-gray-800 rounded-xl cursor-pointer">
                     {{ day }}
 
-                    <div class="text-xs truncate" v-for="project in getProjectByDate(day)">
-                        {{ project.name }}
+                    <div class="flex flex-col gap-4 mt-4">
+                        <div class="p-4 bg-gray-800 rounded-md" v-for="project in getProjectByDate(day)">
+                            {{ project.name }}
+                        </div>
                     </div>
                 </div>
             </div>
