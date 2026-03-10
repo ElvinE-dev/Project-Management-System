@@ -55,7 +55,7 @@ const route = usePage();
 <template>
     <Header />
 
-    <div class="flex dark:bg-gray-800">
+    <div class="flex bg-gray-800">
         <div class="relative w-15 h-screen">
             <SideBar />
         </div>

@@ -3,8 +3,9 @@ import { usePage } from '@inertiajs/vue3';
 import ChatNavigation from '../Components/ChatNavigation.vue';
 import Layout from '../Layouts/Layout.vue';
 import axios from 'axios';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { ref } from 'vue';
+import Echo from 'laravel-echo';
 
 
 interface Data {
@@ -38,7 +39,7 @@ interface Message{
 }
 
 
-const props = defineProps<{data: Data, messages:Message[], opponent:Receiver,  auth:Auth}>()
+const props = defineProps<{data?: Data, messages?:Message[], opponent?:Receiver,  auth:Auth}>()
 
 const receiver = ref<Receiver | null>(null);
 const conversations = ref([]);
@@ -54,21 +55,30 @@ onMounted(async () => {
     })
 
     conversations.value = getConversation.data
+
+    if (!props.data?.id) return;
+
+
     messages.value = props.messages
 
     if(!props.data.receiver_id || !props.auth?.user) return;
     receiver.value = props.opponent
+
+    window.Echo.private(`conversation.${props.data.id}`)
+    .listen('.MessageSent', (e:Object) => {
+        messages.value.unshift(e.message)
+    })
 })
 
 const message = ref('')
 
 async function sendMessage(){
-
-    const res = await axios.post('/chat/'+props.data.id, {
+    
+    await axios.post('/chat/'+props.data.id, {
         message:message.value,
     })
 
-    messages.value.unshift(res.data)
+    message.value = ''
 }
 
 

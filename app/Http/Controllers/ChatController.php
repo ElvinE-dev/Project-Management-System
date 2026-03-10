@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Models\Chat;
 use App\Models\Conversation;
 use App\Models\User;
@@ -20,6 +21,7 @@ class ChatController extends Controller
             'message' => $validated['message'],
         ]);
 
+        MessageSent::dispatch($new_message, $conversation->id);
         return response()->json($new_message);
     }
 

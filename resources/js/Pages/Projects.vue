@@ -14,7 +14,7 @@ import ProjectStats from '../Components/ProjectStats.vue';
 
         <ProjectStats :projectData />
 
-        <div class="flex gap-5 flex-col" >
+        <div class="flex gap-5 flex-col " >
                 <ProjectList :data="data" :handleModal="handleModal" :delete-project="deleteProject" v-for="(data, index) in projectData" :key="index"/>
         </div>
         
